@@ -81,7 +81,7 @@
 		'70' : [ "Smitty",						null,					3, 0, 1, 3, 0 ],
 		'71' : [ "Stephen Hawking",				null,					1, 0, 2, 0, 0 ],
 		'75' : [ "Tinny Tim",					null,					3, 0, 0, 2, 0 ],
-		'80' : [ "Turbo Neptunian",				null,					5, 0, 3, 3, 0 ],
+		'80' : [ "Turbo Neptunian",				null,					5, 0, 1, 1, 0 ],
 		'72' : [ "URL",							null,					2, 0, 1, 2, 0 ],
 		'73' : [ "URL",							"Off-duty",				3, 0, 1, 2, 0 ],
 		'74' : [ "Mutant Vyolet",				null,					3, 0, 0, 2, 0 ]
