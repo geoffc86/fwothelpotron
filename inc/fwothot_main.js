@@ -15,7 +15,8 @@ var user_data = JSON.parse(localStorage.getItem('user_data')) || {},
     work_data = {},
     game_data = {
         'msc_tsk' : { '1' : [ 35, 23 ], '2' : [ 65, 40 ], '3' : [ 80, 54 ], '4' : [ 95, 60 ], '5' : [ 110, 73 ], '6' : [ 125, 85 ], '7' : [ 140, 93 ], '8' : [ 155, 105 ], '9' : [ 170, 112 ], '10' : [ 180, 119 ], '12' : [ 200, 130 ], '14' : [ 215, 143 ], '16' : [ 230, 150 ], '18' : [ 250, 164 ], '20' : [ 265, 176 ], '22' : [ 285, 187 ], '24' : [ 300, 195 ] },
-        'lvl_cpl' : [ 0, 25, 50, 95, 150, 220, 305, 400, 515, 640, 780, 935, 1100, 1285, 1480, 1690, 1915, 2150, 2405, 2670, 2950, 3245, 3550, 3875, 4210, 4560, 4925, 5300, 5695, 6100 ],
+        'lvl_cpl' : [ 0, 25, 50, 95, 150, 220, 305, 400, 515, 640, 780, 935, 1100, 1285, 1480, 1690, 1915, 2150, 2405, 2670, 2950, 3245, 3550, 3875, 4210, 4560, 4925, 5300, 5695, 6100, 6520, 6955, 7400, 7865, 8340, 8830, 9335, 9850, 10385, 10930, 11490, 12065, 12650, 13255, 13870, 14500, 15145, 15800, 16475, 17160, 17860, 18575, 19300, 20045, 20800, 21570, 22355, 23150, 23965, 24790 ],
+        'lvl_nbg' : { '10': 3096, '30': 29304 },
         'lvl_ccv' : { 'kilo' : [ 25, 38 ], 'mega' : [ 40, 60 ], 'giga' : [ 170, 255 ], 'tera' : [ 410, 615 ], 'peta' : [ 970, 1455 ] },
         'chr_map' : ['name', 'outfit', 'class', 'level', 'attack', 'id'],
         'chr_cls' : [ [ 'Captain', '#ffe52c' ], [ 'Scientist', '#ff4d4d' ], [ 'Robot', '#009dfe' ], [ 'Delivery Boy', '#5efcc1' ], [ 'Influencer', '#ff7200' ], [ 'Villain', '#c238ff' ] ],
@@ -424,13 +425,13 @@ function appInit(init) {
 
         // Controls - Calculator - Slider - Level
         noUiSlider.create($('.calc_level')[0], {
-            start: [1, 30],
+            start: [1, 60],
             connect: true,
             step: 1,
             behaviour: 'none',
             tooltips: [true, true],
             format: { to: function ( value ) { return Math.round(value); }, from: function ( value ) { return Math.round(value); } },
-            range: { 'min': 1, 'max': 30 }
+            range: { 'min': 1, 'max': 60 }
         }).on('update', function(values, handle) {
             var cp_output = '';
 
@@ -439,7 +440,13 @@ function appInit(init) {
                     return ac + cp;
                 });
 
-                cp_output += 'Leveling up from <span>level ' + values[0] + '</span> to <span>level ' + values[1] + '</span>, you\'ll need <div><div><div class="items_icon items_nb"></div>' + (cp * 1.6).toLocaleString() + '</div></div> and <div class="calc_level_cp">';
+                var nb = cp * 1.6;
+
+                $.each( game_data['lvl_nbg'], function( key, value ) {
+                    nb += (values[0] <= key && values[1] > key) ? value : 0;
+                });
+
+                cp_output += 'Leveling up from <span>level ' + values[0] + '</span> to <span>level ' + values[1] + '</span>, you\'ll need <div><div><div class="items_icon items_nb"></div>' + nb.toLocaleString() + '</div></div> and <div class="calc_level_cp">';
 
                 $.each( game_data['lvl_ccv'], function( key, value ) {
                     cp_output += '<div><div><div class="items_icon items_' + key + '_r"></div><br/>' + Math.ceil(cp / value[0]).toLocaleString() + '</div><div><div class="items_icon items_' + key + '_s"></div><br/>' + Math.ceil(cp / value[1]).toLocaleString() + '</div></div>';
