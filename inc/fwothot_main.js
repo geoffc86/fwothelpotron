@@ -12,580 +12,593 @@
 
 /* Game and user data ------------------------------- */
 var user_data = JSON.parse(localStorage.getItem('user_data')) || {},
-    work_data = {},
-    game_data = {
-        'msc_tsk' : { '1' : [ 35, 23 ], '2' : [ 65, 40 ], '3' : [ 80, 54 ], '4' : [ 95, 60 ], '5' : [ 110, 73 ], '6' : [ 125, 85 ], '7' : [ 140, 93 ], '8' : [ 155, 105 ], '9' : [ 170, 112 ], '10' : [ 180, 119 ], '12' : [ 200, 130 ], '14' : [ 215, 143 ], '16' : [ 230, 150 ], '18' : [ 250, 164 ], '20' : [ 265, 176 ], '22' : [ 285, 187 ], '24' : [ 300, 195 ] },
-        'lvl_cpl' : [ 0, 25, 50, 95, 150, 220, 305, 400, 515, 640, 780, 935, 1100, 1285, 1480, 1690, 1915, 2150, 2405, 2670, 2950, 3245, 3550, 3875, 4210, 4560, 4925, 5300, 5695, 6100, 6520, 6955, 7400, 7865, 8340, 8830, 9335, 9850, 10385, 10930, 11490, 12065, 12650, 13255, 13870, 14500, 15145, 15800, 16475, 17160, 17860, 18575, 19300, 20045, 20800, 21570, 22355, 23150, 23965, 24790 ],
-        'lvl_nbg' : { '10': 3096, '30': 29304 },
-        'lvl_ccv' : { 'kilo' : [ 25, 38 ], 'mega' : [ 40, 60 ], 'giga' : [ 170, 255 ], 'tera' : [ 410, 615 ], 'peta' : [ 970, 1455 ] },
-        'chr_map' : ['name', 'outfit', 'class', 'level', 'attack', 'id'],
-        'chr_cls' : [ [ 'Captain', '#ffe52c' ], [ 'Scientist', '#ff4d4d' ], [ 'Robot', '#009dfe' ], [ 'Delivery Boy', '#5efcc1' ], [ 'Influencer', '#ff7200' ], [ 'Villain', '#c238ff' ] ],
-        'chr_atk' : [ 'Throw', 'Melee', 'Shoot', 'N/A' ]
-    };
+	work_data = {},
+	game_data = {
+		'msc_tsk' : { '1' : [ 35, 23 ], '2' : [ 65, 40 ], '3' : [ 80, 54 ], '4' : [ 95, 60 ], '5' : [ 110, 73 ], '6' : [ 125, 85 ], '7' : [ 140, 93 ], '8' : [ 155, 105 ], '9' : [ 170, 112 ], '10' : [ 180, 119 ], '12' : [ 200, 130 ], '14' : [ 215, 143 ], '16' : [ 230, 150 ], '18' : [ 250, 164 ], '20' : [ 265, 176 ], '22' : [ 285, 187 ], '24' : [ 300, 195 ] },
+		'lvl_cpl' : [ 0, 25, 50, 95, 150, 220, 305, 400, 515, 640, 780, 935, 1100, 1285, 1480, 1690, 1915, 2150, 2405, 2670, 2950, 3245, 3550, 3875, 4210, 4560, 4925, 5300, 5695, 6100, 6520, 6955, 7400, 7865, 8340, 8830, 9335, 9850, 10385, 10930, 11490, 12065, 12650, 13255, 13870, 14500, 15145, 15800, 16475, 17160, 17860, 18575, 19300, 20045, 20800, 21570, 22355, 23150, 23965, 24790 ],
+		'lvl_nbg' : { '10': 3096, '30': 29304 },
+		'lvl_ccv' : { 'kilo' : [ 25, 38 ], 'mega' : [ 40, 60 ], 'giga' : [ 170, 255 ], 'tera' : [ 410, 615 ], 'peta' : [ 970, 1455 ] },
+		'chr_map' : ['name', 'outfit', 'class', 'level', 'attack', 'affinity', 'rank' ],
+		'chr_cls' : [ [ 'Captain', '#ffe52c' ], [ 'Scientist', '#ff4d4d' ], [ 'Robot', '#009dfe' ], [ 'Delivery Boy', '#5efcc1' ], [ 'Influencer', '#ff7200' ], [ 'Villain', '#c238ff' ] ],
+		'chr_atk' : [ 'Throw', 'Melee', 'Shoot', 'N/A' ],
+		'chr_aff' : [ 'Brainy', 'Brave', 'Cool', 'N/A' ]
+	};
 
 
 /* Data functions ----------------------------------- */
 function dataSync() {
-    //console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name);
+	//console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name);
 
-    var game_data_len = Object.keys(game_data['chr_all']).length,
-        user_data_len = Object.keys(user_data['chr_all']).length,
-        temp_data = {};
+	var game_data_len = Object.keys(game_data['chr_all']).length,
+		user_data_len = Object.keys(user_data['chr_all']).length,
+		temp_data = {};
 
-    work_data = game_data['chr_all'];
+	work_data = game_data['chr_all'];
 
-    $.each( work_data, function( key, value ) {
-        var chr_user = user_data['chr_all'][key];
+	$.each( work_data, function( key, value ) {
+		var chr_user = user_data['chr_all'][key];
 
-        if (typeof chr_user !== 'undefined') {
-            value[3] = chr_user;
-        }
+		if (typeof chr_user !== 'undefined') {
+			value[3] = chr_user;
+		}
 
-        temp_data[key] = value[3];
-    });
+		temp_data[key] = value[3];
+	});
 
-    if (game_data_len != user_data_len) {
-        var chr_dif = game_data_len - user_data_len,
-            mdl_head = 'List updated',
-            mdl_body = '',
-            mdl_foot = {
-                'OKAY' : function() {
-                    drawModal();
-                }
-            };
+	if (game_data_len != user_data_len) {
+		var chr_dif = game_data_len - user_data_len,
+			mdl_head = 'List updated',
+			mdl_body = '',
+			mdl_foot = {
+				'OKAY' : function() {
+					drawModal();
+				}
+			};
 
-        mdl_body = Math.abs(chr_dif) + ' ' + (chr_dif > 0 ?  'new' : '' ) + ' character' + (Math.abs(chr_dif) == 1 ? ' was ': 's were') + ' ' + (chr_dif > 0 ?  'added to' : 'removed from' ) + ' the list of available characters.';
+		mdl_body = Math.abs(chr_dif) + ' ' + (chr_dif > 0 ?  'new' : '' ) + ' character' + (Math.abs(chr_dif) == 1 ? ' was ': 's were') + ' ' + (chr_dif > 0 ?  'added to' : 'removed from' ) + ' the list of available characters.';
 
-        drawModal(mdl_head, mdl_body, mdl_foot, 'small');
+		drawModal(mdl_head, mdl_body, mdl_foot, 'small');
 
-        user_data['chr_all'] = temp_data;
-    } else {
-        temp_data = null;
-    }
+		user_data['chr_all'] = temp_data;
+	} else {
+		temp_data = null;
+	}
 
-    dataUpdate(true, true);
+	dataUpdate(true, true);
 }
 
 function dataUpdate(drawTable, drawStats, init, updateChar) {
-    //console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name + (!!init ? ' (init mode)' : ''));
+	//console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name + (!!init ? ' (init mode)' : ''));
 
-    if (updateChar) {
-        user_data['chr_all'][updateChar[0]] = updateChar[1];
-    } else {
-        user_data = { 'chr_all' : {}, 'chr_own' : [], 'chr_rst' : [], 'chr_unq' : [], 'flt_lst' : {}, 'flt_chr' : [], 'flt_has' : false };
+	if (updateChar) {
+		user_data['chr_all'][updateChar[0]] = updateChar[1];
+	} else {
+		user_data = { 'chr_all' : {}, 'chr_own' : [], 'chr_rst' : [], 'chr_unq' : [], 'flt_lst' : {}, 'flt_chr' : [], 'flt_has' : false };
 
-        $.each( work_data, function( key, value ) {
-            user_data['chr_all'][key] = value[3];
+		$.each( work_data, function( key, value ) {
+			user_data['chr_all'][key] = value[3];
 
-            if (value[3] != 0) {
-                user_data['chr_own'].push(key);
-                
-                if (value[1] === null) {
-                    user_data['chr_unq'].push(key);
-                }
-            } else {
-                user_data['chr_rst'].push(key);
-            }
-        });
-    }
+			if (value[3] != 0) {
+				user_data['chr_own'].push(key);
 
-    localStorage.setItem('user_data', JSON.stringify(user_data));
-    
-    if (init) {
-        var mod_head = 'WOOHOO!',
-            mod_body = '<span class="title_l shadow_l">All done!</span><br /><br /><span class="text">Now that you have your character list, you can set the levels for each individual character on your roster.<br /><br /><span>To adjust the level</span>, simply click or tap on the character\'s row to select it and that will reveal the level adjustment slider. Once you are done, simply tap the row again to deselect it and that will hide the slider.</span>',
-            mod_foot = {
-                'YUP' : function() {
-                    drawModal();
-                }
-            };
+				if (value[1] === null) {
+					user_data['chr_unq'].push(key);
+				}
+			} else {
+				user_data['chr_rst'].push(key);
+			}
+		});
+	}
 
-        drawModal(mod_head, mod_body, mod_foot, 'small');
+	localStorage.setItem('user_data', JSON.stringify(user_data));
 
-        appInit(init);
-    }
+	if (init) {
+		var mod_head = 'WOOHOO!',
+			mod_body = '<span class="title_l shadow_l">All done!</span><br /><br /><span class="text">Now that you have your character list, you can set the levels for each individual character on your roster.<br /><br /><span>To adjust the level</span>, simply click or tap on the character\'s row to select it and that will reveal the level adjustment slider. Once you are done, simply tap the row again to deselect it and that will hide the slider.</span>',
+			mod_foot = {
+				'YUP' : function() {
+					drawModal();
+				}
+			};
 
-    if (drawTable) {
-        drawCharTable();
-    }
+		drawModal(mod_head, mod_body, mod_foot, 'small');
 
-    if (drawStats) {
-        drawCharStats();
-    }
+		appInit(init);
+	}
+
+	if (drawTable) {
+		drawCharTable();
+	}
+
+	if (drawStats) {
+		drawCharStats();
+	}
 }
 
 function filterResults() {
-    //console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name);
+	//console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name);
 
-    var flt_has = false;
+	var flt_has = false;
 
-    user_data['flt_chr'] = user_data['chr_own'];
+	user_data['flt_chr'] = user_data['chr_own'];
 
-    $.each( user_data['flt_lst'], function( type, filter ) {
-        if (filter.length) {
-            var type_id = game_data['chr_map'].indexOf(type);
-            
-            flt_has = true;
+	$.each( user_data['flt_lst'], function( type, filter ) {
+		if (filter.length) {
+			var type_id = game_data['chr_map'].indexOf(type);
 
-            if (type_id == 1){
-                user_data['flt_chr'] = user_data['flt_chr'].filter(function(value) {
-                    return (user_data['flt_lst'][type].indexOf(0) != -1 ? work_data[value][type_id] == null : false) || (user_data['flt_lst'][type].indexOf(1) != -1 ? work_data[value][type_id] != null : false);
-                });
-            } else if (type_id == 3) {
-                user_data['flt_chr'] = user_data['flt_chr'].filter(function(value) {
-                    return (work_data[value][type_id] >= user_data['flt_lst'][type][0]) && (work_data[value][type_id] <= user_data['flt_lst'][type][1]);
-                });
-            } else {
-                user_data['flt_chr'] = user_data['flt_chr'].filter(function(value) {
-                    return user_data['flt_lst'][type].indexOf(work_data[value][type_id]) > -1;
-                });
-            }
-        }
-    });
+			flt_has = true;
 
-    user_data['flt_has'] = flt_has;
+			if (type_id == 1){
+				user_data['flt_chr'] = user_data['flt_chr'].filter(function(value) {
+					return (user_data['flt_lst'][type].indexOf(0) != -1 ? work_data[value][type_id] == null : false) || (user_data['flt_lst'][type].indexOf(1) != -1 ? work_data[value][type_id] != null : false);
+				});
+			} else if (type_id == 3) {
+				user_data['flt_chr'] = user_data['flt_chr'].filter(function(value) {
+					return (work_data[value][type_id] >= user_data['flt_lst'][type][0]) && (work_data[value][type_id] <= user_data['flt_lst'][type][1]);
+				});
+			} else {
+				user_data['flt_chr'] = user_data['flt_chr'].filter(function(value) {
+					return user_data['flt_lst'][type].indexOf(work_data[value][type_id]) > -1;
+				});
+			}
+		}
+	});
 
-    $('#tab_head_1, #tab_body_1, #tab_head_2, #tab_body_2').toggleClass('hasFilter', flt_has);
-    $('#filter_clear').toggleClass('disabled', !flt_has).text(flt_has ? 'Clear all filters' : 'No active filters');
+	user_data['flt_has'] = flt_has;
 
-    drawCharTable();
-    drawCharStats();
+	$('#tab_head_1, #tab_body_1, #tab_head_2, #tab_body_2').toggleClass('hasFilter', flt_has);
+	$('#filter_clear').toggleClass('disabled', !flt_has).text(flt_has ? 'Clear all filters' : 'No active filters');
+
+	drawCharTable();
+	drawCharStats();
 }
 
 function drawCharTable() {
-    //console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name);
+	//console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name);
 
-    $('#char_tbl_own .tbl_b, #char_tbl_rst .tbl_b').remove();
+	$('#char_tbl_own .tbl_b, #char_tbl_rst .tbl_b').remove();
 
-    var chr_own_lst = user_data['flt_has'] ? user_data['flt_chr'] : user_data['chr_own'],
-        chr_own_prv = null,
-        chr_own_txt = '';
+	var chr_own_lst = user_data['flt_has'] ? user_data['flt_chr'] : user_data['chr_own'],
+		chr_own_prv = null,
+		chr_own_txt = '';
 
-    if (Object.keys(chr_own_lst).length) {
-        $.each( game_data['chr_ord'], function( index, value ) {
+	if (Object.keys(chr_own_lst).length) {
+		$.each( game_data['chr_ord'], function( index, value ) {
 
-            if (chr_own_lst.indexOf(value) != -1) {
-                var isGroup = chr_own_prv == work_data[value][0];
+			if (chr_own_lst.indexOf(value) != -1) {
+				var isGroup = chr_own_prv == work_data[value][0];
 
-                chr_own_txt += isGroup ? '' : (index == 0) ? '<div class="tbl_b">' : '</div><div class="tbl_b">';
-                chr_own_txt += '<div class="tbl_r"><div class="tbl_c">' + work_data[value][0] + (work_data[value][1] ? ' - ' + work_data[value][1] : '') + '</div><div class="tbl_c"><div title="' + game_data['chr_cls'][work_data[value][2]][0] + '" class="class_icon table_class table_class_' + work_data[value][2] + '"></div></div><div class="tbl_c level_char" data-id="' + value + '"><span>' + work_data[value][3] + '</span><div class="level_control"></div></div><div class="tbl_c">' + game_data['chr_atk'][work_data[value][4]] + '</div></div>';
+				chr_own_txt += isGroup ? '' : (index == 0) ? '<div class="tbl_b">' : '</div><div class="tbl_b">';
+				chr_own_txt += '<div class="tbl_r"><div class="tbl_c">' + work_data[value][0] + (work_data[value][1] ? ' - ' + work_data[value][1] : '') + '</div><div class="tbl_c"><div title="' + game_data['chr_aff'][work_data[value][5]] + '" class="items_icon table_affinity table_affinity_' + work_data[value][5] + '"></div></div><div class="tbl_c"><div title="' + game_data['chr_cls'][work_data[value][2]][0] + '" class="class_icon table_class table_class_' + work_data[value][2] + '"></div></div><div class="tbl_c level_char" data-id="' + value + '"><span>' + work_data[value][3] + '</span><div class="level_control"></div></div><div class="tbl_c">' + game_data['chr_atk'][work_data[value][4]] + '</div></div>';
 
-                chr_own_prv = work_data[value][0];
-            }
-        });
-    } else {
-        chr_own_txt = '<div class="tbl_b"><div class="tbl_r"><div class="tbl_c char_empty">No characters found.</div></div>';
-    }
+				chr_own_prv = work_data[value][0];
+			}
+		});
+	} else {
+		chr_own_txt = '<div class="tbl_b"><div class="tbl_r"><div class="tbl_c char_empty">No characters found.</div></div>';
+	}
 
-    chr_own_txt += '</div>';
+	chr_own_txt += '</div>';
 
-    $('#char_tbl_own').append(chr_own_txt);
+	$('#char_tbl_own').append(chr_own_txt);
 
-    if (!user_data['flt_has'] && Object.keys(user_data['chr_rst']).length) {
-        var chr_rst_prv = null,
-            chr_rst_txt = '';
+	if (!user_data['flt_has'] && Object.keys(user_data['chr_rst']).length) {
+		var chr_rst_prv = null,
+			chr_rst_txt = '';
 
-        $.each( game_data['chr_ord'], function( index, value ) {
+		$.each( game_data['chr_ord'], function( index, value ) {
 
-            if (user_data['chr_rst'].indexOf(value) != -1) {
-                var isGroup = chr_rst_prv == work_data[value][0];
+			if (user_data['chr_rst'].indexOf(value) != -1) {
+				var isGroup = chr_rst_prv == work_data[value][0];
 
-                chr_rst_txt += isGroup ? '' : (index == 0) ? '<div class="tbl_b">' : '</div><div class="tbl_b">';
-                chr_rst_txt += '<div class="tbl_r"><div class="tbl_c">' + work_data[value][0] + (work_data[value][1] ? ' - ' + work_data[value][1] : '') + '</div><div class="tbl_c"><div title="' + game_data['chr_cls'][work_data[value][2]][0] + '" class="class_icon table_class table_class_' + work_data[value][2] + '"></div></div><div class="tbl_c"><span>-</span></div><div class="tbl_c">' + game_data['chr_atk'][work_data[value][4]] + '</div></div>';
+				chr_rst_txt += isGroup ? '' : (index == 0) ? '<div class="tbl_b">' : '</div><div class="tbl_b">';
+				chr_rst_txt += '<div class="tbl_r"><div class="tbl_c">' + work_data[value][0] + (work_data[value][1] ? ' - ' + work_data[value][1] : '') + '</div><div class="tbl_c"><div title="' + game_data['chr_aff'][work_data[value][5]] + '" class="items_icon table_affinity table_affinity_' + work_data[value][5] + '"></div></div><div class="tbl_c"><div title="' + game_data['chr_cls'][work_data[value][2]][0] + '" class="class_icon table_class table_class_' + work_data[value][2] + '"></div></div><div class="tbl_c"><span>-</span></div><div class="tbl_c">' + game_data['chr_atk'][work_data[value][4]] + '</div></div>';
 
-                chr_rst_prv = work_data[value][0];
-            }
-        });
+				chr_rst_prv = work_data[value][0];
+			}
+		});
 
-        chr_rst_txt += '</div>';
+		chr_rst_txt += '</div>';
 
-        $('#char_tbl_rst').removeClass('hide').data('chars', Object.keys(user_data['chr_rst']).length).append(chr_rst_txt);
-    } else {
-        $('#char_tbl_rst').addClass('hide');
-    }
+		$('#char_tbl_rst').removeClass('hide').data('chars', Object.keys(user_data['chr_rst']).length).append(chr_rst_txt);
+	} else {
+		$('#char_tbl_rst').addClass('hide');
+	}
 }
 
 function drawCharStats() {
-    //console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name);
-    
-    var char_list = user_data['flt_has'] ? user_data['flt_chr'] : user_data['chr_own'],
-        stat_data = { 'chr_unq' : [], 'chr_out' : [], 'chr_cls' : { '0' : [], '1' : [], '2' : [], '3' : [], '4' : [], '5' : [] }, 'chr_avg' : 0 },
-        total_cp = 0;
+	//console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name);
 
-    $.each( char_list, function( index, value ) {
-        if (work_data[value][3] != 0) {
+	var char_list = user_data['flt_has'] ? user_data['flt_chr'] : user_data['chr_own'],
+		stat_data = { 'chr_unq' : [], 'chr_out' : [], 'chr_cls' : { '0' : [], '1' : [], '2' : [], '3' : [], '4' : [], '5' : [] }, 'chr_avg' : 0 },
+		total_cp = 0,
+		total_nb = 0;
 
-            if (work_data[value][1] === null) {
-                stat_data['chr_unq'].push(value);
-            } else {
-                stat_data['chr_out'].push(value);
-            }
+	$.each( char_list, function( index, value ) {
+		if (work_data[value][3] != 0) {
 
-            stat_data['chr_avg'] += work_data[value][3];
-            stat_data['chr_cls'][work_data[value][2]].push(value);
-        }
-    });
+			if (work_data[value][1] === null) {
+				stat_data['chr_unq'].push(value);
+			} else {
+				stat_data['chr_out'].push(value);
+			}
 
-    stat_data['chr_avg'] = stat_data['chr_avg'] != 0 ? (stat_data['chr_avg'] / char_list.length).toFixed(2) : '0';
+			stat_data['chr_avg'] += work_data[value][3];
+			stat_data['chr_cls'][work_data[value][2]].push(value);
+		}
+	});
 
-    $.each( stat_data['chr_cls'], function( key, value ) {
-        $('.stats_class_' + key).html(value.length);
-    });
+	stat_data['chr_avg'] = stat_data['chr_avg'] != 0 ? (stat_data['chr_avg'] / char_list.length).toFixed(2) : '0';
 
-    $.each( char_list, function( key, value ) {
-        total_cp += game_data['lvl_cpl'].slice(0, work_data[value][3]).reduce(function(ac, cp) {
-            return ac + cp;
-        });
-    });
+	$.each( stat_data['chr_cls'], function( key, value ) {
+		$('.stats_class_' + key).html(value.length);
+	});
 
-    $('.stats_text').html('<div>Unique<div>' + stat_data['chr_unq'].length + '</div></div><div>Outfits<div>' + stat_data['chr_out'].length + '</div></div><div>' + (user_data['flt_has'] ? 'Showing' : 'Total') + '<div>' + char_list.length + ' of ' + (user_data['flt_has'] ? user_data['chr_own'].length : Object.keys(user_data['chr_all']).length )+ '</div></div><div>Average level<div>' + stat_data['chr_avg'] + '</div></div>');
-    $('.stats_expense').html('Leveling up ' + (user_data['flt_has'] ? 'these' : 'your') + ' characters, you spent <div><div><div class="items_icon items_nb"></div>' + (total_cp * 1.6).toLocaleString() + '</div><div><div class="items_icon items_giga_r"></div>' + total_cp.toLocaleString() + '</div></div>');
+	$.each( char_list, function( key, value ) {
+		var char_cp = game_data['lvl_cpl'].slice(0, work_data[value][3]).reduce(function(ac, cp) {
+			return ac + cp;
+		});
+
+		var char_nb = char_cp * 1.6;
+
+		$.each( game_data['lvl_nbg'], function( level, price ) {
+			char_nb += (work_data[value][3] > level) ? (level == 10) ? (value > 77) ? price : 0 : price : 0;
+		});
+
+		total_cp += char_cp;
+		total_nb += char_nb;
+	});
+
+	$('.stats_text').html('<div>Unique<div>' + stat_data['chr_unq'].length + '</div></div><div>Outfits<div>' + stat_data['chr_out'].length + '</div></div><div>' + (user_data['flt_has'] ? 'Showing' : 'Total') + '<div>' + char_list.length + ' of ' + (user_data['flt_has'] ? user_data['chr_own'].length : Object.keys(user_data['chr_all']).length )+ '</div></div><div>Average level<div>' + stat_data['chr_avg'] + '</div></div>');
+	$('.stats_expense').html('Leveling up ' + (user_data['flt_has'] ? 'these' : 'your') + ' characters, you spent <div><div><div class="items_icon items_nb"></div>' + total_nb.toLocaleString() + '</div><div><div class="items_icon items_giga_r"></div>' + total_cp.toLocaleString() + '</div></div>');
 }
 
 function drawCharSetup(init) {
-    //console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name + (!!init ? ' (init mode)' : ''));
+	//console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name + (!!init ? ' (init mode)' : ''));
 
-    var chr_head = 'Select your characters',
-        chr_body = '',
-        chr_foot = {
-            'DONE' : function() {
-                var chg = false,
-                    set = $('#modal_body .controls input:checkbox');
+	var chr_head = 'Select your characters',
+		chr_body = '',
+		chr_foot = {
+			'DONE' : function() {
+				var chg = false,
+					set = $('#modal_body .controls input:checkbox');
 
-                if (set.filter(':checked').length) {
-                    set.each(function(){
-                        var cur_chr = $(this).prop('id').substr(12),
-                            new_sts = $(this).prop('checked');
+				if (set.filter(':checked').length) {
+					set.each(function(){
+						var cur_chr = $(this).prop('id').substr(12),
+							new_sts = $(this).prop('checked');
 
-                        if (( work_data[cur_chr][3] == 0 && new_sts ) || ( work_data[cur_chr][3] != 0 && !new_sts )) {
-                            work_data[cur_chr][3] = new_sts ? 1 : 0;
-                            chg = true;
-                        }
-                    });
+						if (( work_data[cur_chr][3] == 0 && new_sts ) || ( work_data[cur_chr][3] != 0 && !new_sts )) {
+							work_data[cur_chr][3] = new_sts ? 1 : 0;
+							chg = true;
+						}
+					});
 
-                    drawModal();
+					drawModal();
 
-                    if (chg || init) {
-                        dataUpdate(true, true, init);
-                    }
-                }
-            }
-        };
+					if (chg || init) {
+						dataUpdate(true, true, init);
+					}
+				}
+			}
+		};
 
-    if (init) {
-        chr_body += '<div class="text">Check all the characters you currently have in <span>Futurama: Worlds of Tomorrow</span>. Don\'t worry if you can\'t find a character, the list is constantly updated as we get more events and characters.</div>';
-    }
+	if (init) {
+		chr_body += '<div class="text">Check all the characters you currently have in <span>Futurama: Worlds of Tomorrow</span>. Don\'t worry if you can\'t find a character, the list is constantly updated as we get more events and characters.</div>';
+	}
 
-    chr_body += '<div class="select_all"><label><input class="select_char" id="select_char_all" type="checkbox"' + (init ? '' : (user_data['chr_rst'].length != 0 ? '' : ' checked="checked"')) + '/><span class="control_checkbox"><span class="items_icon items_ck"></span></span>Select all characters</label></div><div class="controls">';
+	chr_body += '<div class="select_all"><label><input class="select_char" id="select_char_all" type="checkbox"' + (init ? '' : (user_data['chr_rst'].length != 0 ? '' : ' checked="checked"')) + '/><span class="control_checkbox"><span class="items_icon items_ck"></span></span>Select all characters</label></div><div class="controls">';
 
-    $.each( game_data['chr_ord'], function( index, value ) {
-        chr_body += '<label><input class="select_char" id="select_char_' + value + '" type="checkbox"' + (work_data[value][3] > 0 ? ' checked="checked"' : '') + '/><span class="control_checkbox"><span class="items_icon items_ck"></span></span>' + work_data[value][0] + (work_data[value][1] != null ? ' - ' + work_data[value][1] : '') + '</label>';
-    });
+	$.each( game_data['chr_ord'], function( index, value ) {
+		if (work_data[value]) {
+			chr_body += '<label><input class="select_char" id="select_char_' + value + '" type="checkbox"' + (work_data[value][3] > 0 ? ' checked="checked"' : '') + '/><span class="control_checkbox"><span class="items_icon items_ck"></span></span>' + work_data[value][0] + (work_data[value][1] != null ? ' - ' + work_data[value][1] : '') + '</label>';
+		}
+	});
 
-    chr_body += '</div>';
+	chr_body += '</div>';
 
-    if (!init) {
-        chr_foot['CANCEL'] = function() {
-            drawModal();
-        }
-    }
+	if (!init) {
+		chr_foot['CANCEL'] = function() {
+			drawModal();
+		}
+	}
 
-    drawModal(chr_head, chr_body, chr_foot);
+	drawModal(chr_head, chr_body, chr_foot);
 }
 
 function drawModal(head, body, foot, size) {
-    //console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name);
+	//console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name);
 
-    if (arguments.length !== 0) {
-        $('#modal_head').html(head);
-        $('#modal_body').html(body);
+	if (arguments.length !== 0) {
+		$('#modal_head').html(head);
+		$('#modal_body').html(body);
 
-        $.each( foot, function( key, value ) {
-            $('<button id="modal_button_' + key.replace(/[^a-zA-Z0-9]/g, '').toLowerCase() + '" type="button">' + key + '</button>').appendTo('#modal_foot').on('click', value);
-        });
+		$.each( foot, function( key, value ) {
+			$('<button id="modal_button_' + key.replace(/[^a-zA-Z0-9]/g, '').toLowerCase() + '" type="button">' + key + '</button>').appendTo('#modal_foot').on('click', value);
+		});
 
-        if (size) {
-            $('#modal_cont').addClass(size);
-        }
-    } else {
-        $('#modal_cont').removeClass();
-        $('#modal_head, #modal_body').html('');
-        $('#modal_foot button').remove();
-    }
+		if (size) {
+			$('#modal_cont').addClass(size);
+		}
+	} else {
+		$('#modal_cont').removeClass();
+		$('#modal_head, #modal_body').html('');
+		$('#modal_foot button').remove();
+	}
 
-    $('body').toggleClass('show_modal');
+	$('body').toggleClass('show_modal');
 }
 
 function appInit(init) {
-    //console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name + (!!init ? ' (init mode)' : ''));
+	//console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name + (!!init ? ' (init mode)' : ''));
 
-    if (!Object.keys(user_data).length) {
-        //console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - setup');
+	if (!Object.keys(user_data).length) {
+		//console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - setup');
 
-        work_data = game_data['chr_all'];
+		work_data = game_data['chr_all'];
 
-        var mod_head = 'Behold, the Help-O-Tron 7000!',
-            mod_body = '<span class="title_l shadow_l">Welcome!</span><br /><br /><span class="text">It looks like this is your first time using the Help-O-Tron 7000. <br /><br />We will begin with creating your character list. You can always add or remove characters at any time by using the <span>Edit</span> button.</span>',
-            mod_foot = {
-                'LET\'S GO!' : function() {
-                    drawModal();
-                    drawCharSetup(true);
-                }
-            };
+		var mod_head = 'Behold, the Help-O-Tron 7000!',
+			mod_body = '<span class="title_l shadow_l">Welcome!</span><br /><br /><span class="text">It looks like this is your first time using the Help-O-Tron 7000. <br /><br />We will begin with creating your character list. You can always add or remove characters at any time by using the <span>Edit</span> button.</span>',
+			mod_foot = {
+				'LET\'S GO!' : function() {
+					drawModal();
+					drawCharSetup(true);
+				}
+			};
 
-        drawModal(mod_head, mod_body, mod_foot, 'small');
+		drawModal(mod_head, mod_body, mod_foot, 'small');
 
-    } else {
-        //console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - running');
-        var clipboard;
+	} else {
+		//console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - running');
+		var clipboard;
 
-        if (!init) {
-            dataSync();
-        }
+		if (!init) {
+			dataSync();
+		}
 
-        // Controls - Characters - Level
-        $('#char_tbl_own').on('click', '.tbl_b .tbl_r', function(e) {
-            if (!$(e.target).closest('.level_control', this).length) {
-                var lvl_ctr_par = $(this).find('.level_char'),
-                    lvl_ctr_elm = lvl_ctr_par.find('.level_control');
+		// Controls - Characters - Level
+		$('#char_tbl_own').on('click', '.tbl_b .tbl_r', function(e) {
+			if (!$(e.target).closest('.level_control', this).length) {
+				var lvl_ctr_par = $(this).find('.level_char'),
+					lvl_ctr_elm = lvl_ctr_par.find('.level_control');
 
-                $('#char_tbl_own').find('.level_control_slide').remove();
+				$('#char_tbl_own').find('.level_control_slide').remove();
 
-                if (!$(this).hasClass('selected')) {
-                    var lvl_ctr_txt = lvl_ctr_par.find('span'),
-                        lvl_ctr_val = parseInt(lvl_ctr_txt.text()),
-                        lvl_ctr_cid = parseInt(lvl_ctr_par.data('id')),
-                        lvl_ctr_sld = $('<div class="level_control_slide noUi-extended"></div>').appendTo(lvl_ctr_elm);
+				if (!$(this).hasClass('selected')) {
+					var lvl_ctr_txt = lvl_ctr_par.find('span'),
+						lvl_ctr_val = parseInt(lvl_ctr_txt.text()),
+						lvl_ctr_cid = parseInt(lvl_ctr_par.data('id')),
+						lvl_ctr_sld = $('<div class="level_control_slide noUi-extended"></div>').appendTo(lvl_ctr_elm);
 
-                    noUiSlider.create(lvl_ctr_sld[0], {
-                        start: lvl_ctr_val,
-                        behaviour: 'none',
-                        step: 1,
-                        connect: [true, false],
-                        range: { 'min': 1, 'max': 30 },
-                        format: { to: function ( value ) { return Math.round(value); }, from: function ( value ) { return Math.round(value); } }
-                    }).on('slide', function(values, handle) {
-                        work_data[lvl_ctr_cid][3] = values[0];
+					noUiSlider.create(lvl_ctr_sld[0], {
+						start: lvl_ctr_val,
+						behaviour: 'none',
+						step: 1,
+						connect: [true, false],
+						range: { 'min': 1, 'max': 60 },
+						format: { to: function ( value ) { return Math.round(value); }, from: function ( value ) { return Math.round(value); } }
+					}).on('slide', function(values, handle) {
+						work_data[lvl_ctr_cid][3] = values[0];
 
-                        lvl_ctr_txt.text(work_data[lvl_ctr_cid][3]);
+						lvl_ctr_txt.text(work_data[lvl_ctr_cid][3]);
 
-                        dataUpdate(false, true, false, [lvl_ctr_cid, values[0]]);
-                    });
-                }
+						dataUpdate(false, true, false, [lvl_ctr_cid, values[0]]);
+					});
+				}
 
-                $('.tbl_r.selected').add(this).toggleClass('selected');
+				$('.tbl_r.selected').add(this).toggleClass('selected');
 
-            }
-        });
+			}
+		});
 
-        // Controls - Filter
-        $('input[class^="show_"]').on('change', function() {
-            var flt_type = $(this).prop('class').substr(5),
-                flt_actv = $('.show_' + flt_type + ':checkbox:checked');
+		// Controls - Filter
+		$('input[class^="show_"]').on('change', function() {
+			var flt_type = $(this).prop('class').substr(5),
+				flt_actv = $('.show_' + flt_type + ':checkbox:checked');
 
-            user_data['flt_lst'][flt_type] = [];
+			user_data['flt_lst'][flt_type] = [];
 
-            if (flt_actv.length) {
-                flt_actv.each(function() {
-                    user_data['flt_lst'][flt_type].push(parseInt($(this).prop('id').substr(flt_type.length + 6)));
-                });
-            }
+			if (flt_actv.length) {
+				flt_actv.each(function() {
+					user_data['flt_lst'][flt_type].push(parseInt($(this).prop('id').substr(flt_type.length + 6)));
+				});
+			}
 
-            filterResults();
-        });
+			filterResults();
+		});
 
-        // Controls - Filter - Slider - Level
-        noUiSlider.create($('.filter_level')[0], {
-            start: [1, 30],
-            connect: true,
-            step: 1,
-            behaviour: 'none',
-            tooltips: [true, true],
-            format: { to: function ( value ) { return Math.round(value); }, from: function ( value ) { return Math.round(value); } },
-            range: { 'min': 1, 'max': 30 }
-        }).on('change', function(values, handle){
-            user_data['flt_lst']['level'] = (values[0] == 1 && values[1] == 30) ? [] : values;
+		// Controls - Filter - Slider - Level
+		noUiSlider.create($('.filter_level')[0], {
+			start: [1, 60],
+			connect: true,
+			step: 1,
+			behaviour: 'none',
+			tooltips: [true, true],
+			format: { to: function ( value ) { return Math.round(value); }, from: function ( value ) { return Math.round(value); } },
+			range: { 'min': 1, 'max': 60 }
+		}).on('change', function(values, handle){
+			user_data['flt_lst']['level'] = (values[0] == 1 && values[1] == 60) ? [] : values;
 
-            filterResults();
-        });
+			filterResults();
+		});
 
-        // Controls - Filter - Clear
-        $('#filter_clear').on('click', function() {
-            $('input[class^="show_"]').prop('checked', false);
-            $('.filter_level')[0].noUiSlider.set([1, 30]);
+		// Controls - Filter - Clear
+		$('#filter_clear').on('click', function() {
+			$('input[class^="show_"]').prop('checked', false);
+			$('.filter_level')[0].noUiSlider.set([1, 60]);
 
-            user_data['flt_lst'] = {};
-            user_data['flt_chr'] = [];
-            user_data['flt_has'] = false;
+			user_data['flt_lst'] = {};
+			user_data['flt_chr'] = [];
+			user_data['flt_has'] = false;
 
-            $('#tab_head_1, #tab_body_1, #tab_head_2, #tab_body_2').toggleClass('hasFilter', false);
+			$('#tab_head_1, #tab_body_1, #tab_head_2, #tab_body_2').toggleClass('hasFilter', false);
 
-            filterResults();
-        });
+			filterResults();
+		});
 
-        // Controls - Calculator - Slider - Level
-        noUiSlider.create($('.calc_level')[0], {
-            start: [1, 60],
-            connect: true,
-            step: 1,
-            behaviour: 'none',
-            tooltips: [true, true],
-            format: { to: function ( value ) { return Math.round(value); }, from: function ( value ) { return Math.round(value); } },
-            range: { 'min': 1, 'max': 60 }
-        }).on('update', function(values, handle) {
-            var cp_output = '';
+		// Controls - Calculator - Slider - Level
+		noUiSlider.create($('.calc_level')[0], {
+			start: [1, 60],
+			connect: true,
+			step: 1,
+			behaviour: 'none',
+			tooltips: [true, true],
+			format: { to: function ( value ) { return Math.round(value); }, from: function ( value ) { return Math.round(value); } },
+			range: { 'min': 1, 'max': 60 }
+		}).on('update', function(values, handle) {
+			var cp_output = '';
 
-            if (values[0] != values[1]) {
-                var cp = game_data['lvl_cpl'].slice(values[0], values[1]).reduce(function(ac, cp) {
-                    return ac + cp;
-                });
+			if (values[0] != values[1]) {
+				var cp = game_data['lvl_cpl'].slice(values[0], values[1]).reduce(function(ac, cp) {
+					return ac + cp;
+				});
 
-                var nb = cp * 1.6;
+				var nb = cp * 1.6;
 
-                $.each( game_data['lvl_nbg'], function( key, value ) {
-                    nb += (values[0] <= key && values[1] > key) ? value : 0;
-                });
+				$.each( game_data['lvl_nbg'], function( key, value ) {
+					nb += (values[0] <= key && values[1] > key) ? value : 0;
+				});
 
-                cp_output += 'Leveling up from <span>level ' + values[0] + '</span> to <span>level ' + values[1] + '</span>, you\'ll need <div><div><div class="items_icon items_nb"></div>' + nb.toLocaleString() + '</div></div> and <div class="calc_level_cp">';
+				cp_output += 'Leveling up from <span>level ' + values[0] + '</span> to <span>level ' + values[1] + '</span>, you\'ll need <div><div><div class="items_icon items_nb"></div>' + nb.toLocaleString() + '</div></div> and <div class="calc_level_cp">';
 
-                $.each( game_data['lvl_ccv'], function( key, value ) {
-                    cp_output += '<div><div><div class="items_icon items_' + key + '_r"></div><br/>' + Math.ceil(cp / value[0]).toLocaleString() + '</div><div><div class="items_icon items_' + key + '_s"></div><br/>' + Math.ceil(cp / value[1]).toLocaleString() + '</div></div>';
-                });
+				$.each( game_data['lvl_ccv'], function( key, value ) {
+					cp_output += '<div><div><div class="items_icon items_' + key + '_r"></div><br/>' + Math.ceil(cp / value[0]).toLocaleString() + '</div><div><div class="items_icon items_' + key + '_s"></div><br/>' + Math.ceil(cp / value[1]).toLocaleString() + '</div></div>';
+				});
 
-                cp_output += '</div>';
-            } else {
-                cp_output = 'Please pick different values';
-            }
+				cp_output += '</div>';
+			} else {
+				cp_output = 'Please pick different values';
+			}
 
-            $('.calc_level_output').html(cp_output);
-        });
+			$('.calc_level_output').html(cp_output);
+		});
 
-        // Controls - Calculator - Slider - Revenue
-        noUiSlider.create($('.calc_revenue')[0], {
-            start: [1],
-            behaviour: 'none',
-            tooltips: [true],
-            format: { to: function ( value ) { return Math.round(value); }, from: function ( value ) { return Math.round(value); } },
-            range: { 'min': [ 1, 1 ], '4.348%' : [ 2, 1 ], '8.696%' : [ 3, 1 ], '13.044%' : [ 4, 1], '17.392%' : [ 5, 1 ], '21.740%' : [ 6, 1 ], '26.088%' : [ 7, 1 ], '30.436%' : [ 8, 1 ], '34.784%' : [ 9, 1 ], '39.132%' : [ 10, 2 ], '47.828%' : [ 12, 2 ], '56.524%' : [ 14, 2 ], '65.220%' : [ 16, 2 ], '73.916%' : [ 18, 2 ], '82.612%' : [ 20, 2 ], '91.308%' : [ 22, 2 ], 'max': [ 24 ] }
-        }).on('update', function(values, handle){
-            $('.calc_revenue_output').html('Sending everyone on a <span>' + values[0] + ' ' + (values[0] == 1 ? 'hour' : 'hours') + '</span> task will generate<div><div><div class="items_icon items_nb"></div>' + (user_data['chr_unq'].length * game_data['msc_tsk'][values[0]][0]).toLocaleString() + '</div><div><div class="items_icon items_xp"></div>' + (user_data['chr_unq'].length * game_data['msc_tsk'][values[0]][1]).toLocaleString() + '</div></div>');
-        });
+		// Controls - Calculator - Slider - Revenue
+		noUiSlider.create($('.calc_revenue')[0], {
+			start: [1],
+			behaviour: 'none',
+			tooltips: [true],
+			format: { to: function ( value ) { return Math.round(value); }, from: function ( value ) { return Math.round(value); } },
+			range: { 'min': [ 1, 1 ], '4.348%' : [ 2, 1 ], '8.696%' : [ 3, 1 ], '13.044%' : [ 4, 1], '17.392%' : [ 5, 1 ], '21.740%' : [ 6, 1 ], '26.088%' : [ 7, 1 ], '30.436%' : [ 8, 1 ], '34.784%' : [ 9, 1 ], '39.132%' : [ 10, 2 ], '47.828%' : [ 12, 2 ], '56.524%' : [ 14, 2 ], '65.220%' : [ 16, 2 ], '73.916%' : [ 18, 2 ], '82.612%' : [ 20, 2 ], '91.308%' : [ 22, 2 ], 'max': [ 24 ] }
+		}).on('update', function(values, handle){
+			$('.calc_revenue_output').html('Sending everyone on a <span>' + values[0] + ' ' + (values[0] == 1 ? 'hour' : 'hours') + '</span> task will generate<div><div><div class="items_icon items_nb"></div>' + (user_data['chr_unq'].length * game_data['msc_tsk'][values[0]][0]).toLocaleString() + '</div><div><div class="items_icon items_xp"></div>' + (user_data['chr_unq'].length * game_data['msc_tsk'][values[0]][1]).toLocaleString() + '</div></div>');
+		});
 
-        // Controls - UI - Tabs
-        $('div.tab_head').on('click', function() {
-            var cur_id = new_id = $(this).prop('id').substr(9),
-                old_id = $('#tabs_head_main').data('active'),
-                select = '#tab_head_' + cur_id + ', #tab_body_' + cur_id,
-                hasAct = true;
-                
-            if (old_id) {
-                if (old_id != cur_id) {
-                    select += ', #tab_head_' + old_id + ', #tab_body_' + old_id;
-                } else {
-                    new_id = null;
-                    hasAct = false
-                }
-            }
+		// Controls - UI - Tabs
+		$('div.tab_head').on('click', function() {
+			var cur_id = new_id = $(this).prop('id').substr(9),
+				old_id = $('#tabs_head_main').data('active'),
+				select = '#tab_head_' + cur_id + ', #tab_body_' + cur_id,
+				hasAct = true;
+				
+			if (old_id) {
+				if (old_id != cur_id) {
+					select += ', #tab_head_' + old_id + ', #tab_body_' + old_id;
+				} else {
+					new_id = null;
+					hasAct = false
+				}
+			}
 
-            $('#tabs_head_main').data('active', new_id).toggleClass('hasActive', hasAct);
-            $(select).toggleClass('active');
-        });
+			$('#tabs_head_main').data('active', new_id).toggleClass('hasActive', hasAct);
+			$(select).toggleClass('active');
+		});
 
-        // Controls - UI - Panels
-        $('.title_l').on('click', function(){
-            $(this).parent('div').toggleClass('collapsed');
-        });
-        
-        // Controls - UI - Unavailable characters
-        $('#char_tbl_rst_show').on('click', function() {
-            var tbl_par = $('#char_tbl_rst');
-                tbl_iso = tbl_par.hasClass('open');
+		// Controls - UI - Panels
+		$('.title_l').on('click', function(){
+			$(this).parent('div').toggleClass('collapsed');
+		});
 
-            tbl_par.css('maxHeight', (tbl_iso ? 0 : 42 * tbl_par.data('chars')) + 38 + 'px').toggleClass('open', !tbl_iso);
+		// Controls - UI - Unavailable characters
+		$('#char_tbl_rst_show').on('click', function() {
+			var tbl_par = $('#char_tbl_rst');
+				tbl_iso = tbl_par.hasClass('open');
 
-            $(this).html((tbl_iso ? 'Show' : 'Hide'));
-        });
+			tbl_par.css('maxHeight', (tbl_iso ? 0 : 42 * tbl_par.data('chars')) + 38 + 'px').toggleClass('open', !tbl_iso);
 
-        // Character setup
-        $('#menu_setup').on('click', function(){
-            drawCharSetup();
-        });
+			$(this).html((tbl_iso ? 'Show' : 'Hide'));
+		});
 
-        // Roster backup
-        $('#menu_backup').on('click', function(){
-            var mod_head = 'Import / Export data',
-                mod_body = '<span class="title_l shadow_l">Better safe than sorry!</span><br /><br /><span class="text">Your current roster is stored in your own browser\'s cache which means it can be easily deleted by accident.<br /><br /><span>To export</span> the data and be prepared in case of a mishap, periodically copy the data below and paste it in a safe place.<br /><br /><div class="user_data_form"><button type="button" class="user_data_control" id="user_data_copy" data-clipboard-text="' + JSON.stringify(user_data['chr_all']).replace(/"/g, '&quot;') + '">Copy data to clipboard</button></div><div class="user_data_response" id="user_data_copy_response"></div><br /><br /><span>To import</span> your backup, simply paste it in the field below and hit <span>Import</span>.<br /><br /><div class="user_data_form"><input type="text" class="user_data_control" id="user_data_value" value="" /><button type="button" class="user_data_control" id="user_data_import">Import</button></div><div class="user_data_response" id="user_data_import_response"></div></span>',
-                mod_foot = {
-                    'MMMHM' : function() {
-                        clipboard.destroy();
-                        drawModal();
-                    },
-                };
+		// Character setup
+		$('#menu_setup').on('click', function(){
+			drawCharSetup();
+		});
 
-            drawModal(mod_head, mod_body, mod_foot, 'small');
+		// Roster backup
+		$('#menu_backup').on('click', function(){
+			var mod_head = 'Import / Export data',
+				mod_body = '<span class="title_l shadow_l">Better safe than sorry!</span><br /><br /><span class="text">Your current roster is stored in your own browser\'s cache which means it can be easily deleted by accident.<br /><br /><span>To export</span> the data and be prepared in case of a mishap, periodically copy the data below and paste it in a safe place.<br /><br /><div class="user_data_form"><button type="button" class="user_data_control" id="user_data_copy" data-clipboard-text="' + JSON.stringify(user_data['chr_all']).replace(/"/g, '&quot;') + '">Copy data to clipboard</button></div><div class="user_data_response" id="user_data_copy_response"></div><br /><br /><span>To import</span> your backup, simply paste it in the field below and hit <span>Import</span>.<br /><br /><div class="user_data_form"><input type="text" class="user_data_control" id="user_data_value" value="" /><button type="button" class="user_data_control" id="user_data_import">Import</button></div><div class="user_data_response" id="user_data_import_response"></div></span>',
+				mod_foot = {
+					'MMMHM' : function() {
+						clipboard.destroy();
+						drawModal();
+					},
+				};
 
-            clipboard = new Clipboard('#user_data_copy');
-            clipboard.on('success', function(e) {
-                $('#user_data_copy_response').text('Data copied, go paste!').show();
-            }).on('error', function(e) {
-                $('#user_data_copy_response').text('Oops, unable to copy data').show();
-            });
-        });
+			drawModal(mod_head, mod_body, mod_foot, 'small');
 
-        // Roster import
-        $('#main_modal').on('click', '#user_data_import', function() {
-            var new_user_strg = $('#user_data_value').val(),
-                new_user_resp = $('#user_data_import_response');
+			clipboard = new Clipboard('#user_data_copy');
+			clipboard.on('success', function(e) {
+				$('#user_data_copy_response').text('Data copied, go paste!').show();
+			}).on('error', function(e) {
+				$('#user_data_copy_response').text('Oops, unable to copy data').show();
+			});
+		});
 
-            try {
-                var old_user_data = JSON.stringify(user_data['chr_all']);
+		// Roster import
+		$('#main_modal').on('click', '#user_data_import', function() {
+			var new_user_strg = $('#user_data_value').val(),
+				new_user_resp = $('#user_data_import_response');
 
-                if(old_user_data == new_user_strg) {
-                    new_user_resp.text('Data is unchanged. Aborting.');
-                } else {
-                    new_user_data = JSON.parse(new_user_strg);
-                    work_data = game_data['chr_all'];
-                    
-                    $.each( work_data , function( key, value ) {
-                        work_data[key][3] = new_user_data[key];
-                    });
+			try {
+				var old_user_data = JSON.stringify(user_data['chr_all']);
 
-                    dataUpdate(true, true);
+				if(old_user_data == new_user_strg) {
+					new_user_resp.text('Data is unchanged. Aborting.');
+				} else {
+					new_user_data = JSON.parse(new_user_strg);
+					work_data = game_data['chr_all'];
+					
+					$.each( work_data , function( key, value ) {
+						work_data[key][3] = new_user_data[key];
+					});
 
-                    new_user_resp.text('Data imported successfully!');
-                }
-            } catch (e) {
-                new_user_resp.text('Invalid data');
-            }
+					dataUpdate(true, true);
 
-            new_user_resp.show();
-            $('#user_data_value').val('');
-        });
-    }
+					new_user_resp.text('Data imported successfully!');
+				}
+			} catch (e) {
+				new_user_resp.text('Invalid data');
+			}
+
+			new_user_resp.show();
+			$('#user_data_value').val('');
+		});
+	}
 }
 
 // Initialize
 $(document).ready(function(){
-    appInit();
+	appInit();
 
-    // Roster select all
-    $('#main_modal').on('change', 'input:checkbox', function() {
-        var chk_set = $('#main_modal .controls input:checkbox');
+	// Roster select all
+	$('#main_modal').on('change', 'input:checkbox', function() {
+		var chk_set = $('#main_modal .controls input:checkbox');
 
-        if ($(this).prop('id') == 'select_char_all') {
-            chk_set.prop('checked', $(this).prop('checked'));
-        } else {
-            $('#main_modal #select_char_all').prop('checked', chk_set.length == chk_set.filter(':checked').length);
-        }
-    });
-    
-    function hf() {
-        var s = $('#main_logo').width() / 600;
-        $('#main_logo > div').css('transform', 'scale(' + s + ')');
-        $('#main_logo').css('paddingBottom', ($('#main_logo > div').height() * s) + 'px');
-    }
-    
-    $(window).on('resize', hf);
-    hf();
+		if ($(this).prop('id') == 'select_char_all') {
+			chk_set.prop('checked', $(this).prop('checked'));
+		} else {
+			$('#main_modal #select_char_all').prop('checked', chk_set.length == chk_set.filter(':checked').length);
+		}
+	});
+
+	function hf() {
+		var s = $('#main_logo').width() / 600;
+		$('#main_logo > div').css('transform', 'scale(' + s + ')');
+		$('#main_logo').css('paddingBottom', ($('#main_logo > div').height() * s) + 'px');
+	}
+
+	$(window).on('resize', hf);
+	hf();
 
 });

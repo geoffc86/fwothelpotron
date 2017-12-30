@@ -1,201 +1,221 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script>
-        document.write('<style> #noscript { display: none !important; } </style>');
-    </script>
+	<script>
+		document.write('<style> #noscript { display: none !important; } </style>');
+	</script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110218717-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110218717-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
 
-        gtag('config', 'UA-110218717-1');
-    </script>
+		gtag('config', 'UA-110218717-1');
+	</script>
 
-    <title>F:WOT Help-o-tron 7000</title>
+	<title>F:WOT Help-o-tron 7000</title>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="theme-color" content="#1a2d41">
-    <meta name="msapplication-navbutton-color" content="#1a2d41">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="theme-color" content="#1a2d41">
+	<meta name="msapplication-navbutton-color" content="#1a2d41">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" type="text/css" href="inc/fwothot.css">
-    <link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="inc/fwothot.css">
+	<link rel="shortcut icon" href="favicon.ico">
 
-    <script type="text/javascript" src="inc/fwothot_main.js"></script>
-    <script type="text/javascript" src="inc/fwothot_data.js"></script>
+	<script type="text/javascript" src="inc/fwothot_main.js"></script>
+	<script type="text/javascript" src="inc/fwothot_data.js"></script>
 </head>
 <body>
-    <div id="main_modal">
-        <div id="modal_wrap">
-            <div id="modal_cont">
-                <div id="modal_head"></div>
-                <div id="modal_body"></div>
-                <div id="modal_foot"></div>
-            </div>
-        </div>
-    </div>
-    <div id="main_wrap">
-        <div id="main_head">
-            <div id="main_logo">
-                <div>
-                    <a href="https://redd.it/7fgehy" target="_blank">
-                        F:WOT Help-O-Tron 7000
-                        <span>by FreekOne</span>
-                    </a>
-                </div>
-            </div>
-            <div id="main_menu">
-                <div class="menu_wrap">
-                    <div id="menu_setup"><div class="items_icon items_ch"></div>Edit</div>
-                    <div id="menu_backup"><div class="items_icon items_ie"></div>Backup</div>
-                    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VS9EVLRZETFA6" target="_top"><div class="items_icon items_pz"></div>Pizza me!</a>
-                </div>
-            </div>
-        </div>
-        <div id="main_body">
-            <div id="main_char">
-                <div class="tbl_m" id="char_tbl_own">
-                    <div class="tbl_h">
-                        <div class="tbl_r">
-                            <div class="tbl_c">Character</div>
-                            <div class="tbl_c"></div>
-                            <div class="tbl_c">Level</div>
-                            <div class="tbl_c">Attack</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tbl_m hide" id="char_tbl_rst">
-                    <div class="tbl_h">
-                        <div class="tbl_r">
-                            <div class="tbl_c">Missing characters</div>
-                            <div class="tbl_c">
-                                <div id="char_tbl_rst_show" class="button">Show</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="main_ctrl">
-                <div id="tabs_head_main">
-                    <div id="tab_head_1" class="tab_head title_l shadow_l">Stats</div>
-                    <div id="tab_head_2" class="tab_head title_l shadow_l">Filters</div>
-                    <div id="tab_head_3" class="tab_head title_l shadow_l">Calculators</div>
-                </div>
-                <div id="tabs_body_main">
-                    <div id="tab_body_1">
-                        <div class="title_l shadow_l">Stats</div>
-                        <div class="wrap">
-                            <div class="title_s shadow_s"><div>Characters by class</div></div>
-                            <div class="stats_class">
-                                <div class="stats_class_0 class_icon" title="Captains"></div>
-                                <div class="stats_class_1 class_icon" title="Scientists"></div>
-                                <div class="stats_class_2 class_icon" title="Robots"></div>
-                                <div class="stats_class_3 class_icon" title="Delivery Boys"></div>
-                                <div class="stats_class_4 class_icon" title="Influencers"></div>
-                                <div class="stats_class_5 class_icon" title="Villains"></div>
-                            </div>
-                            <div class="title_s shadow_s"><div>Breakdown</div></div>
-                            <div class="stats_text"></div>
-                            <div class="title_s shadow_s"><div>Expenses</div></div>
-                            <div class="stats_expense"></div>
-                        </div>
-                    </div>
-                    <div id="tab_body_2" class="collapsed">
-                        <div class="title_l shadow_l">Filters</div>
-                        <div class="wrap">
-                            <div id="filter_clear" class="button disabled">No active filters</div>
-                            <div class="title_s shadow_s"><div>Show only</div></div>
-                            <div class="controls">
-                                <label>
-                                    <input class="show_class" type="checkbox" id="show_class_0"/>
-                                    <span class="control_checkbox"><span class="items_icon items_ck"></span></span>Captains
-                                </label>
-                                <label>
-                                    <input class="show_class" type="checkbox" id="show_class_1"/>
-                                    <span class="control_checkbox"><span class="items_icon items_ck"></span></span>Scientists
-                                </label>
-                                <label>
-                                    <input class="show_class" type="checkbox" id="show_class_2"/>
-                                    <span class="control_checkbox"><span class="items_icon items_ck"></span></span>Robots
-                                </label>
-                                <label>
-                                    <input class="show_class" type="checkbox" id="show_class_3"/>
-                                    <span class="control_checkbox"><span class="items_icon items_ck"></span></span>Delivery Boys
-                                </label>
-                                <label>
-                                    <input class="show_class" type="checkbox" id="show_class_4"/>
-                                    <span class="control_checkbox"><span class="items_icon items_ck"></span></span>Influencers
-                                </label>
-                                <label>
-                                    <input class="show_class" type="checkbox" id="show_class_5"/>
-                                    <span class="control_checkbox"><span class="items_icon items_ck"></span></span>Villains
-                                </label>
-                            </div>
-                            <div class="title_s shadow_s"><div>Who attack by</div></div>
-                            <div class="controls">
-                                <label>
-                                    <input class="show_attack" type="checkbox" id="show_attack_0"/>
-                                    <span class="control_checkbox"><span class="items_icon items_ck"></span></span>Throwing
-                                </label>
-                                <label>
-                                    <input class="show_attack" type="checkbox" id="show_attack_1"/>
-                                    <span class="control_checkbox"><span class="items_icon items_ck"></span></span>Melee
-                                </label>
-                                <label>
-                                    <input class="show_attack" type="checkbox" id="show_attack_2"/>
-                                    <span class="control_checkbox"><span class="items_icon items_ck"></span></span>Shooting
-                                </label>
-                                <label>
-                                    <input class="show_attack" type="checkbox" id="show_attack_3"/>
-                                    <span class="control_checkbox"><span class="items_icon items_ck"></span></span>Unknown
-                                </label>
-                            </div>
-                            <div class="title_s shadow_s"><div>And are a</div></div>
-                            <div class="controls">
-                                <label>
-                                    <input class="show_outfit" type="checkbox" id="show_outfit_0"/>
-                                    <span class="control_checkbox"><span class="items_icon items_ck"></span></span>Character
-                                </label>
-                                <label>
-                                    <input class="show_outfit" type="checkbox" id="show_outfit_1"/>
-                                    <span class="control_checkbox"><span class="items_icon items_ck"></span></span>Outfit
-                                </label>
-                            </div>
-                            <div class="title_s shadow_s"><div>Between levels</div></div>
-                            <div class="controls_range">
-                                <div class="filter_level noUi-extended"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab_body_3" class="collapsed">
-                        <div class="title_l shadow_l">Calculators</div>
-                        <div class="wrap">
-                            <div class="title_s shadow_s"><div>Task revenue</div></div>
-                            <div class="controls_range">
-                                <div class="calc_revenue noUi-extended"></div>
-                            </div>
-                            <div class="calc_revenue_output"></div>
-                            <div class="title_s shadow_s"><div>Level up cost</div></div>
-                            <div class="controls_range">
-                                <div class="calc_level noUi-extended"></div>
-                            </div>
-                            <div class="calc_level_output"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="noscript">
-        <div>
-            <div class="shadow_l">F:WOT Help-O-Tron 7000</div>
-            <div>This application relies heavily on Javascript. In order to use it, you must have it enabled.</div>
-        </div>
-    </div>
+	<div id="main_modal">
+		<div id="modal_wrap">
+			<div id="modal_cont">
+				<div id="modal_head"></div>
+				<div id="modal_body"></div>
+				<div id="modal_foot"></div>
+			</div>
+		</div>
+	</div>
+	<div id="main_wrap">
+		<div id="main_head">
+			<div id="main_logo">
+				<div>
+					<a href="https://redd.it/7fgehy" target="_blank">
+						F:WOT Help-O-Tron 7000
+						<span>by FreekOne</span>
+					</a>
+				</div>
+			</div>
+			<div id="main_menu">
+				<div class="menu_wrap">
+					<div id="menu_setup"><div class="items_icon items_ch"></div>Edit</div>
+					<div id="menu_backup"><div class="items_icon items_ie"></div>Backup</div>
+					<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VS9EVLRZETFA6" target="_top"><div class="items_icon items_pz"></div>Pizza me!</a>
+				</div>
+			</div>
+		</div>
+		<div id="main_body">
+			<div id="main_char">
+				<div class="tbl_m" id="char_tbl_own">
+					<div class="tbl_h">
+						<div class="tbl_r">
+							<div class="tbl_c">Character</div>
+							<div class="tbl_c"></div>
+							<div class="tbl_c"></div>
+							<div class="tbl_c">Level</div>
+							<div class="tbl_c">Attack</div>
+						</div>
+					</div>
+				</div>
+				<div class="tbl_m hide" id="char_tbl_rst">
+					<div class="tbl_h">
+						<div class="tbl_r">
+							<div class="tbl_c">Missing characters</div>
+							<div class="tbl_c">
+								<div id="char_tbl_rst_show" class="button">Show</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="main_ctrl">
+				<div id="tabs_head_main">
+					<div id="tab_head_1" class="tab_head title_l shadow_l">Stats</div>
+					<div id="tab_head_2" class="tab_head title_l shadow_l">Filters</div>
+					<div id="tab_head_3" class="tab_head title_l shadow_l">Calculators</div>
+				</div>
+				<div id="tabs_body_main">
+					<div id="tab_body_1">
+						<div class="title_l shadow_l">Stats</div>
+						<div class="wrap">
+							<div class="title_s shadow_s"><div>Characters by class</div></div>
+							<div class="stats_class">
+								<div class="stats_class_0 class_icon" title="Captains"></div>
+								<div class="stats_class_1 class_icon" title="Scientists"></div>
+								<div class="stats_class_2 class_icon" title="Robots"></div>
+								<div class="stats_class_3 class_icon" title="Delivery Boys"></div>
+								<div class="stats_class_4 class_icon" title="Influencers"></div>
+								<div class="stats_class_5 class_icon" title="Villains"></div>
+							</div>
+							<div class="title_s shadow_s"><div>Breakdown</div></div>
+							<div class="stats_text"></div>
+							<div class="title_s shadow_s"><div>Expenses</div></div>
+							<div class="stats_expense"></div>
+						</div>
+					</div>
+					<div id="tab_body_2" class="collapsed">
+						<div class="title_l shadow_l">Filters</div>
+						<div class="wrap">
+							<div id="filter_clear" class="button disabled">No active filters</div>
+							<div class="title_s shadow_s"><div>Show only</div></div>
+							<div class="controls">
+								<label>
+									<input class="show_class" type="checkbox" id="show_class_0"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Captains
+								</label>
+								<label>
+									<input class="show_class" type="checkbox" id="show_class_1"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Scientists
+								</label>
+								<label>
+									<input class="show_class" type="checkbox" id="show_class_2"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Robots
+								</label>
+								<label>
+									<input class="show_class" type="checkbox" id="show_class_3"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Delivery Boys
+								</label>
+								<label>
+									<input class="show_class" type="checkbox" id="show_class_4"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Influencers
+								</label>
+								<label>
+									<input class="show_class" type="checkbox" id="show_class_5"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Villains
+								</label>
+							</div>
+							<div class="title_s shadow_s"><div>With an affinity for being</div></div>
+							<div class="controls">
+								<label>
+									<input class="show_affinity" type="checkbox" id="show_affinity_0"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Brainy
+								</label>
+								<label>
+									<input class="show_affinity" type="checkbox" id="show_affinity_1"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Brave
+								</label>
+								<label>
+									<input class="show_affinity" type="checkbox" id="show_affinity_2"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Cool
+								</label>
+								<label>
+									<input class="show_affinity" type="checkbox" id="show_affinity_3"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Unknown
+								</label>
+							</div>
+							<div class="title_s shadow_s"><div>Who attack by</div></div>
+							<div class="controls">
+								<label>
+									<input class="show_attack" type="checkbox" id="show_attack_0"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Throwing
+								</label>
+								<label>
+									<input class="show_attack" type="checkbox" id="show_attack_1"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Melee
+								</label>
+								<label>
+									<input class="show_attack" type="checkbox" id="show_attack_2"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Shooting
+								</label>
+								<label>
+									<input class="show_attack" type="checkbox" id="show_attack_3"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Unknown
+								</label>
+							</div>
+							<div class="title_s shadow_s"><div>And are a</div></div>
+							<div class="controls">
+								<label>
+									<input class="show_outfit" type="checkbox" id="show_outfit_0"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Character
+								</label>
+								<label>
+									<input class="show_outfit" type="checkbox" id="show_outfit_1"/>
+									<span class="control_checkbox"><span class="items_icon items_ck"></span></span>Outfit
+								</label>
+							</div>
+							<div class="title_s shadow_s"><div>Between levels</div></div>
+							<div class="controls_range">
+								<div class="filter_level noUi-extended"></div>
+							</div>
+						</div>
+					</div>
+					<div id="tab_body_3" class="collapsed">
+						<div class="title_l shadow_l">Calculators</div>
+						<div class="wrap">
+							<div class="title_s shadow_s"><div>Task revenue</div></div>
+							<div class="controls_range">
+								<div class="calc_revenue noUi-extended"></div>
+							</div>
+							<div class="calc_revenue_output"></div>
+							<div class="title_s shadow_s"><div>Level up cost</div></div>
+							<div class="controls_range">
+								<div class="calc_level noUi-extended"></div>
+							</div>
+							<div class="calc_level_output"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="noscript">
+		<div>
+			<div class="shadow_l">F:WOT Help-O-Tron 7000</div>
+			<div>This application relies heavily on Javascript. In order to use it, you must have it enabled.</div>
+		</div>
+	</div>
 </body>
 </html>
