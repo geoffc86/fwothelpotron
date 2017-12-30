@@ -58,7 +58,7 @@
 		'47' : [ "Hyper-Chicken",				null,					4, 0, 1, 0, 0 ],
 		'48' : [ "Kif",							null,					3, 0, 2, 1, 0 ],
 		'49' : [ "Kif",							"Cowboy",				3, 0, 2, 2, 0 ],
-	//	'86' : [ "Kwanzaabot",					null,					?, 0, 3, 3, 0 ],
+		'86' : [ "Kwanzaabot",					null,					2, 0, 0, 2, 0 ],
 		'50' : [ "LaBarbara",					null,					4, 0, 1, 2, 0 ],
 		'51' : [ "Leela",						null,					0, 0, 2, 1, 0 ],
 		'52' : [ "Leela",						"Colonial",				3, 0, 2, 1, 0 ],
