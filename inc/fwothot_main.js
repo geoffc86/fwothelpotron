@@ -15,7 +15,6 @@ var user_data = JSON.parse(localStorage.getItem('user_data')) || {},
 	work_data = {},
 	game_data = {
 		'msc_tsk' : { '1' : [ 35, 23 ], '2' : [ 65, 40 ], '3' : [ 80, 54 ], '4' : [ 95, 60 ], '5' : [ 110, 73 ], '6' : [ 125, 85 ], '7' : [ 140, 93 ], '8' : [ 155, 105 ], '9' : [ 170, 112 ], '10' : [ 180, 119 ], '12' : [ 200, 130 ], '14' : [ 215, 143 ], '16' : [ 230, 150 ], '18' : [ 250, 164 ], '20' : [ 265, 176 ], '22' : [ 285, 187 ], '24' : [ 300, 195 ] },
-		'lvl_cpl' : [ 0, 25, 50, 95, 150, 220, 305, 400, 515, 640, 780, 935, 1100, 1285, 1480, 1690, 1915, 2150, 2405, 2670, 2950, 3245, 3550, 3875, 4210, 4560, 4925, 5300, 5695, 6100, 6520, 6955, 7400, 7865, 8340, 8830, 9335, 9850, 10385, 10930, 11490, 12065, 12650, 13255, 13870, 14500, 15145, 15800, 16475, 17160, 17860, 18575, 19300, 20045, 20800, 21570, 22355, 23150, 23965, 24790, 25630, 26485, 27350, 28235, 29130, 30040, 30965, 31900, 32855, 33820, 34800, 35795, 36800, 37825, 38860, 39910, 40975, 42050, 43145, 44250, 45370, 46505, 47650, 48815, 49990, 51180, 52385, 53600, 54835, 56080, 57340, 58615, 59900, 61205, 62520, 63850, 65195, 66550, 67925, 69310 ],
 		'lvl_nbg' : { '10': 3096, '30': 29304, '60': 119016 },
 		'lvl_ccv' : { 'kilo' : [ 25, 38 ], 'mega' : [ 40, 60 ], 'giga' : [ 170, 255 ], 'tera' : [ 410, 615 ], 'peta' : [ 970, 1455 ] },
 		'chr_map' : ['name', 'outfit', 'class', 'level', 'attack', 'affinity', 'rank' ],
@@ -23,7 +22,6 @@ var user_data = JSON.parse(localStorage.getItem('user_data')) || {},
 		'chr_atk' : [ 'Throw', 'Melee', 'Shoot', 'N/A' ],
 		'chr_aff' : [ 'Brainy', 'Brave', 'Cool', 'N/A' ]
 	};
-
 
 /* Data functions ----------------------------------- */
 function dataSync() {
@@ -113,6 +111,30 @@ function dataUpdate(drawTable, drawStats, init, updateChar) {
 	if (drawStats) {
 		drawCharStats();
 	}
+}
+
+function getCP(ln, lc) {
+	var a = [0,4,2,3,3,2],
+		o = i = v = t = 0,
+		d = 25,
+		e = ln || 1,
+		s = lc || 1;
+
+	for (var l = 0; l < e; l++) {
+		if (l != 0) {
+			v += d;
+			d += i;
+
+			o = (o == 5) ? 1 : ++o;
+			i = 5 * a[o];
+		}
+
+		if (l >= s) {
+			t += v;
+		}
+	}
+
+	return [v, t];
 }
 
 function filterResults() {
@@ -235,11 +257,8 @@ function drawCharStats() {
 	});
 
 	$.each( char_list, function( key, value ) {
-		var char_cp = game_data['lvl_cpl'].slice(0, work_data[value][3]).reduce(function(ac, cp) {
-			return ac + cp;
-		});
-
-		var char_nb = char_cp * 1.6;
+		var char_cp = getCP(work_data[value][3])[1],
+			char_nb = char_cp * 1.6;
 
 		$.each( game_data['lvl_nbg'], function( level, price ) {
 			char_nb += (work_data[value][3] > level) ? (level == 10) ? (value > 77) ? price : 0 : price : 0;
@@ -449,11 +468,8 @@ function appInit(init) {
 			var cp_output = '';
 
 			if (values[0] != values[1]) {
-				var cp = game_data['lvl_cpl'].slice(values[0], values[1]).reduce(function(ac, cp) {
-					return ac + cp;
-				});
-
-				var nb = cp * 1.6;
+				var cp = getCP(values[1], values[0])[1],
+					nb = cp * 1.6;
 
 				$.each( game_data['lvl_nbg'], function( key, value ) {
 					nb += (values[0] <= key && values[1] > key) ? value : 0;
