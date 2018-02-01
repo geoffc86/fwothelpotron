@@ -38,7 +38,7 @@
 		'27' : [ "Destructor",					null,					0, 0, 1, 1, 0 ],
 		'28' : [ "Dr. Cahill",					null,					1, 0, 1, 2, 0 ],
 		'29' : [ "Mutant Dwayne",				null,					4, 0, 1, 1, 0 ],
-		'92' : [ "Elzar",						null,					4, 0, 3, 2, 0 ],
+		'92' : [ "Elzar",						null,					4, 0, 0, 2, 0 ],
 		'30' : [ "Fender",						null,					2, 0, 0, 2, 0 ],
 		'31' : [ "Flexo",						null,					2, 0, 1, 1, 0 ],
 		'32' : [ "Free Waterfall Jr.",			null,					3, 0, 0, 2, 0 ],
