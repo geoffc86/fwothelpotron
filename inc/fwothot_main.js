@@ -17,6 +17,8 @@ var user_data = JSON.parse(localStorage.getItem('user_data')) || {},
 		'msc_tsk' : { '1' : [ 35, 23 ], '2' : [ 65, 40 ], '3' : [ 80, 54 ], '4' : [ 95, 60 ], '5' : [ 110, 73 ], '6' : [ 125, 85 ], '7' : [ 140, 93 ], '8' : [ 155, 105 ], '9' : [ 170, 112 ], '10' : [ 180, 119 ], '12' : [ 200, 130 ], '14' : [ 215, 143 ], '16' : [ 230, 150 ], '18' : [ 250, 164 ], '20' : [ 265, 176 ], '22' : [ 285, 187 ], '24' : [ 300, 195 ] },
 		'lvl_nbg' : { '10': 3096, '30': 29304, '60': 119016 },
 		'lvl_ccv' : { 'kilo' : [ 25, 38 ], 'mega' : [ 40, 60 ], 'giga' : [ 170, 255 ], 'tera' : [ 410, 615 ], 'peta' : [ 970, 1455 ] },
+		'lvl_min' : 1,
+		'lvl_max' : 99,
 		'chr_map' : ['name', 'outfit', 'class', 'level', 'attack', 'affinity', 'rank' ],
 		'chr_cls' : [ [ 'Captain', '#ffe52c' ], [ 'Scientist', '#ff4d4d' ], [ 'Robot', '#009dfe' ], [ 'Delivery Boy', '#5efcc1' ], [ 'Influencer', '#ff7200' ], [ 'Villain', '#c238ff' ] ],
 		'chr_atk' : [ 'Throw', 'Melee', 'Shoot', 'N/A' ],
@@ -114,6 +116,8 @@ function dataUpdate(drawTable, drawStats, init, updateChar) {
 }
 
 function getCP(ln, lc) {
+	//console.log('[' + new Date().toISOString().substr(11, 12) + '] ' + arguments.callee.name + ' - called by ' + arguments.callee.caller.name);
+
 	var a = [0,4,2,3,3,2],
 		o = i = v = t = 0,
 		d = 25,
@@ -288,7 +292,7 @@ function drawCharSetup(init) {
 							new_sts = $(this).prop('checked');
 
 						if (( work_data[cur_chr][3] == 0 && new_sts ) || ( work_data[cur_chr][3] != 0 && !new_sts )) {
-							work_data[cur_chr][3] = new_sts ? 1 : 0;
+							work_data[cur_chr][3] = work_data[cur_chr][6] = new_sts ? 1 : 0;
 							chg = true;
 						}
 					});
@@ -381,32 +385,59 @@ function appInit(init) {
 				var lvl_ctr_par = $(this).find('.level_char'),
 					lvl_ctr_elm = lvl_ctr_par.find('.level_control');
 
-				$('#char_tbl_own').find('.level_control_slide').remove();
+				$('#char_tbl_own').find('.level_control_slide, .level_control_input').remove();
 
 				if (!$(this).hasClass('selected')) {
 					var lvl_ctr_txt = lvl_ctr_par.find('span'),
 						lvl_ctr_val = parseInt(lvl_ctr_txt.text()),
 						lvl_ctr_cid = parseInt(lvl_ctr_par.data('id')),
-						lvl_ctr_sld = $('<div class="level_control_slide noUi-extended"></div>').appendTo(lvl_ctr_elm);
+						lvl_ctr_sld = $('<div class="level_control_slide noUi-extended"></div>').appendTo(lvl_ctr_elm),
+						lvl_ctr_inp = $('<div class="level_control_input">Adjust character level</div>').appendTo(lvl_ctr_elm);
+						lvl_ctr_fld = $('<input type="number" class="level_control_field" />').val(lvl_ctr_val).appendTo(lvl_ctr_inp);
+
+					function _levelUpdate(value, isSlider) {
+						work_data[lvl_ctr_cid][3] = value;
+
+						lvl_ctr_txt.text(value);
+
+						if (isSlider) {
+							lvl_ctr_fld.val(value);
+						} else {
+							lvl_ctr_sld[0].noUiSlider.set([value]);
+						}
+
+						dataUpdate(false, true, false, [lvl_ctr_cid, value]);
+					}
 
 					noUiSlider.create(lvl_ctr_sld[0], {
 						start: lvl_ctr_val,
 						behaviour: 'none',
 						step: 1,
 						connect: [true, false],
-						range: { 'min': 1, 'max': 99 },
-						format: { to: function ( value ) { return Math.round(value); }, from: function ( value ) { return Math.round(value); } }
+						range: { 'min': game_data['lvl_min'], 'max': game_data['lvl_max'] },
+						format: { to: function ( value ) { return Math.round(value); }, from: function ( value ) { return Math.round(value); } },
+						pips: {
+							mode: 'values',
+							values: [10, 20, 30, 40, 50, 60, 70, 80, 90],
+							density: 10
+						}
 					}).on('slide', function(values, handle) {
-						work_data[lvl_ctr_cid][3] = values[0];
+						_levelUpdate(values[0], true);
+					});
 
-						lvl_ctr_txt.text(work_data[lvl_ctr_cid][3]);
+					lvl_ctr_fld.on('change', function(){
+						var value = parseInt(this.value),
+							valid = value >= game_data['lvl_min'] && value <= game_data['lvl_max'];
 
-						dataUpdate(false, true, false, [lvl_ctr_cid, values[0]]);
+						if (valid) {
+							_levelUpdate(value, false);
+						}
+
+						lvl_ctr_inp.toggleClass('error', !valid);
 					});
 				}
 
 				$('.tbl_r.selected').add(this).toggleClass('selected');
-
 			}
 		});
 
@@ -428,15 +459,15 @@ function appInit(init) {
 
 		// Controls - Filter - Slider - Level
 		noUiSlider.create($('.filter_level')[0], {
-			start: [1, 99],
+			start: [game_data['lvl_min'], game_data['lvl_max']],
 			connect: true,
 			step: 1,
 			behaviour: 'none',
 			tooltips: [true, true],
 			format: { to: function ( value ) { return Math.round(value); }, from: function ( value ) { return Math.round(value); } },
-			range: { 'min': 1, 'max': 99 }
+			range: { 'min': game_data['lvl_min'], 'max': game_data['lvl_max'] }
 		}).on('change', function(values, handle){
-			user_data['flt_lst']['level'] = (values[0] == 1 && values[1] == 99) ? [] : values;
+			user_data['flt_lst']['level'] = (values[0] == game_data['lvl_min'] && values[1] == game_data['lvl_max']) ? [] : values;
 
 			filterResults();
 		});
@@ -444,7 +475,7 @@ function appInit(init) {
 		// Controls - Filter - Clear
 		$('#filter_clear').on('click', function() {
 			$('input[class^="show_"]').prop('checked', false);
-			$('.filter_level')[0].noUiSlider.set([1, 99]);
+			$('.filter_level')[0].noUiSlider.set([game_data['lvl_min'], game_data['lvl_max']]);
 
 			user_data['flt_lst'] = {};
 			user_data['flt_chr'] = [];
@@ -457,13 +488,13 @@ function appInit(init) {
 
 		// Controls - Calculator - Slider - Level
 		noUiSlider.create($('.calc_level')[0], {
-			start: [1, 99],
+			start: [game_data['lvl_min'], game_data['lvl_max']],
 			connect: true,
 			step: 1,
 			behaviour: 'none',
 			tooltips: [true, true],
 			format: { to: function ( value ) { return Math.round(value); }, from: function ( value ) { return Math.round(value); } },
-			range: { 'min': 1, 'max': 99 }
+			range: { 'min': game_data['lvl_min'], 'max': game_data['lvl_max'] }
 		}).on('update', function(values, handle) {
 			var cp_output = '';
 
