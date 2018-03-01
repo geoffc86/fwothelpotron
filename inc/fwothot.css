@@ -31,7 +31,6 @@
 	#tab_head_1.hasFilter:after, #tab_head_2.hasFilter:after, #tab_body_1.hasFilter:after, #tab_body_2.hasFilter:after { position: absolute; font-size: 1rem; line-height: 14px; font-weight: 700; text-align: center; display: inline-block; height: 14px; padding: 0 5px; border-radius: 7px; color: #1a2d41; text-shadow: none; transform: translate(-5px, -50%); }
 	#tab_head_1.hasFilter:after, #tab_body_1.hasFilter:after { content: "Filtered"; }
 	#tab_head_2.hasFilter:after, #tab_body_2.hasFilter:after { content: "Active"; }
-	.collapsed .wrap { pointer-events: none; }
 
 	/* Icons --------------------------------------------------------- */
 	.class_icon { background-size: auto 100%; background-repeat: no-repeat; background-image: url('../img/fwothot_icons_large.png'); cursor: default; }
@@ -316,8 +315,8 @@
 		#tabs_body_main > div .title_l { cursor: pointer; }
 		#tabs_body_main > div .title_l:after { content: "\2770"; display: block; width: 20px; height: 20px; line-height: 20px; text-align: center; font-size: 1.8rem; position: absolute; top: 2px; right: 0; color: rgba(255,255,255,0.35); transform: rotate(90deg); text-shadow: none; }
 		#tabs_body_main > div.collapsed .title_l:after { transform: rotate(-90deg); }
-		#tabs_body_main > div > .wrap { opacity: 1; max-height: 800px; padding-top: 20px; padding-bottom: 20px; transition-property: max-height, padding-top, padding-bottom, opacity; transition-delay: 0ms, 0ms, 0ms, 500ms; transition-duration: 500ms; }
-		#tabs_body_main > div.collapsed > .wrap { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; transition-property: opacity, max-height, padding-top, padding-bottom; transition-delay: 0ms, 500ms, 500ms, 500ms; transition-duration: 500ms; }
+		#tabs_body_main > div > .wrap { opacity: 1; max-height: 800px; padding-top: 20px; padding-bottom: 20px; transition-property: max-height, padding-top, padding-bottom, opacity; transition-delay: 0ms, 0ms, 0ms, 500ms; transition-duration: 500ms; pointer-events: auto; }
+		#tabs_body_main > div.collapsed > .wrap { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; transition-property: opacity, max-height, padding-top, padding-bottom; transition-delay: 0ms, 500ms, 500ms, 500ms; transition-duration: 500ms; pointer-events: none; }
 
 		#tab_body_1.hasFilter:after, #tab_body_2.hasFilter:after { top: 24px; background-color: #ffed42; }
 		#tab_body_1.hasFilter:after { left: 85px; }
