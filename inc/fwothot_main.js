@@ -22,7 +22,7 @@ var user_data = JSON.parse(localStorage.getItem('user_data')) || {},
 		'chr_map' : ['name', 'outfit', 'class', 'level', 'attack', 'affinity', 'rank' ],
 		'chr_cls' : [ [ 'Captain', '#ffe52c' ], [ 'Scientist', '#ff4d4d' ], [ 'Robot', '#009dfe' ], [ 'Delivery Boy', '#5efcc1' ], [ 'Influencer', '#ff7200' ], [ 'Villain', '#c238ff' ] ],
 		'chr_atk' : [ 'Throw', 'Melee', 'Shoot', 'N/A' ],
-		'chr_aff' : [ 'Brainy', 'Brave', 'Cool', 'N/A' ]
+		'chr_aff' : [ 'Brainy', 'Brave', 'Cool', 'Good', 'Evil', 'N/A' ]
 	};
 
 /* Data functions ----------------------------------- */

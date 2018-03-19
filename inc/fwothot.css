@@ -69,7 +69,9 @@
 	.table_affinity_0 { background-position: -320px top; }
 	.table_affinity_1 { background-position: -340px top; }
 	.table_affinity_2 { background-position: -360px top; }
-	.table_affinity_3 { background: none; }
+	.table_affinity_3 { background-position: -380px top; }
+	.table_affinity_4 { background-position: -400px top; }
+	.table_affinity_5 { background: none; }
 
 
 	/* Text styles --------------------------------------------------- */
