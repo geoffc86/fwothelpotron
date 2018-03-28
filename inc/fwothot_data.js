@@ -88,7 +88,7 @@
 		 '84' : [ "Leela",						"Power Suit",				1, 0, 2, 1, 0 ],
 		 '54' : [ "Leela",						"Robot",					2, 0, 2, 1, 0 ],
 		 '55' : [ "Leg Mutant",					null,						3, 0, 0, 2, 0 ],
-		'118' : [ "Leo",						null,						5, 0, 3, 5, 0 ],
+		'118' : [ "Leo",						null,						5, 0, 0, 1, 0 ],
 		 '95' : [ "Lisa",						null,						0, 0, 1, 0, 0 ],
 		 '56' : [ "Lrrr",						null,						0, 0, 2, 1, 0 ],
 		'101' : [ "Lrrr",						"Midlife Crisis",			4, 0, 2, 2, 0 ],
@@ -125,7 +125,7 @@
 		 '73' : [ "URL",						"Off-duty",					3, 0, 1, 2, 0 ],
 		 '74' : [ "Mutant Vyolet",				null,						3, 0, 0, 2, 0 ],
 		'125' : [ "Waltazar",					null,						5, 0, 1, 2, 0 ],
-		'119' : [ "Zapp",						null,						0, 0, 3, 5, 0 ],
+		'119' : [ "Zapp",						null,						0, 0, 2, 1, 0 ],
 		 '90' : [ "Zoidberg",					null,						1, 0, 1, 0, 0 ],
 		'109' : [ "Zoidberg",					"Money Suit",				4, 0, 1, 0, 0 ]
 	};
