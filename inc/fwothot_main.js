@@ -20,7 +20,7 @@ var user_data = JSON.parse(localStorage.getItem('user_data')) || {},
 		'lvl_min' : 1,
 		'lvl_max' : 99,
 		'chr_map' : ['name', 'outfit', 'class', 'level', 'attack', 'affinity', 'rank' ],
-		'chr_cls' : [ [ 'Captain', '#ffe52c' ], [ 'Scientist', '#ff4d4d' ], [ 'Robot', '#009dfe' ], [ 'Delivery Boy', '#5efcc1' ], [ 'Influencer', '#ff7200' ], [ 'Villain', '#c238ff' ] ],
+		'chr_cls' : [ [ 'Captain', '#ffe52c' ], [ 'Scientist', '#ff4d4d' ], [ 'Defender', '#009dfe' ], [ 'Delivery Boy', '#5efcc1' ], [ 'Influencer', '#ff7200' ], [ 'Villain', '#c238ff' ] ],
 		'chr_atk' : [ 'Throw', 'Melee', 'Shoot', 'N/A' ],
 		'chr_aff' : [ 'Brainy', 'Brave', 'Cool', 'Good', 'Evil', 'N/A' ]
 	};
