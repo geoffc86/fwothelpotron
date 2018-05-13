@@ -109,7 +109,7 @@
 		'112' : [ "Mayor Poopenmeyer",			null,						0, 0, 0, 1, 0 ],
 		'102' : [ "Michelle",					null,						3, 0, 1, 2, 0 ],
 		'135' : [ "Mom",						null,						1, 0, 2, 4, 0 ],
-		'148' : [ "Mom",						"Motherly",					2, 0, 2, 3, 0 ],
+		'148' : [ "Mom",						"Motherly",					2, 0, 2, 4, 0 ],
 		'131' : [ "Momon",						null,						5, 0, 1, 4, 0 ],
 		 '58' : [ "Monique",					null,						4, 0, 2, 2, 0 ],
 		'143' : [ "Morbo",						null,						3, 0, 2, 1, 0 ],
